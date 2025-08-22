@@ -67,6 +67,11 @@ npx cypress run --spec "cypress/e2e/calculadora.cy.js"
 
 4. Gerar relatório de despesas
 
+5. Edite ou exclua despesas conforme necessário.
+  
+6. Clique em **Baixar Relatório em PDF** para gerar um resumo completo do orçamento.
+
+
 ## **Estrutura do Pojeto**
 
 
@@ -92,7 +97,3 @@ Calculadora-despesas/
 ├── cypress.config.js
 └── .gitignore
 
-
-
-5. Edite ou exclua despesas conforme necessário.  
-6. Clique em **Baixar Relatório em PDF** para gerar um resumo completo do orçamento.
