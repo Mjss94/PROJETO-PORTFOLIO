@@ -97,4 +97,6 @@ Calculadora-despesas/
 ├── cypress.config.js
 └── .gitignore
 
+```
+
 ## **Documentos Adicionais** 
