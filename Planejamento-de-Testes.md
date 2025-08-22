@@ -72,3 +72,19 @@ A estratégia de teste será **mista**, combinando testes manuais e automatizado
 - Gráficos devem ser atualizados após qualquer alteração nas despesas.
 - Interface deve ser clara, intuitiva e responsiva.
 - Sistema não deve aceitar entradas inválidas.
+
+## Ferramentas de Teste
+
+- Navegador Web: Para execução manual dos testes.
+
+
+## Bugs Encontrados na Aplicação Web
+
+| ID | Área / Campo | Descrição do Bug | Comportamento Esperado |
+|----|--------------|-----------------|-----------------------|
+| B001 | Campo "Nome da despesa" | Está sendo aceito números no campo de nome | Apenas letras e caracteres válidos devem ser aceitos |
+| B002 | Campo "Valor das despesas" | Está sendo aceito o caractere “E” (letra) | Apenas números devem ser aceitos |
+| B003 | Campo "Renda mensal" | Não está sendo aceito a vírgula (,) entre os números | Deve permitir o uso de vírgula como separador decimal |
+| B004 | Campo "Valor da despesa" | Ao adicionar um valor com vírgula, na lista de despesas ele é convertido para ponto (.) | Deve manter o formato inserido pelo usuário ou padronizar de forma consistente com vírgula |
+| B005 | Layout / Responsividade | A aplicação quebra a responsividade em telas menores | A aplicação deve manter layout responsivo em todos os tamanhos de tela |
+
