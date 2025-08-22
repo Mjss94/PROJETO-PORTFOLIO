@@ -100,3 +100,5 @@ Calculadora-despesas/
 ```
 
 ## **Documentos Adicionais** 
+
+Planejamento de teste
