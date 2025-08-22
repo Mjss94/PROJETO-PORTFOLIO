@@ -101,4 +101,7 @@ Calculadora-despesas/
 
 ## **Documentos Adicionais** 
 
+[Planejamento de Testes](Planejamento-de-Testes.md)
+
+
 Planejamento de teste
