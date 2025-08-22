@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Orçamento</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      background: #fff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      margin: 30px;
+      width: 90%;
+      max-width: 800px;
+      text-align: center;
+    }
+    h1 {
+      color: #0077b6;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #00b4d8;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0096c7;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background: #f1f1f1;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .actions button {
+      margin-left: 5px;
+      background: #ff595e;
+    }
+    .actions button.edit {
+      background: #ffca3a;
+    }
+    .actions button:hover {
+      opacity: 0.8;
+    }
+    .summary {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    .pdf-btn {
+      background: #06d6a0;
+      margin-top: 15px;
+    }
+    canvas {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Calculadora de Orçamento</h1>
+    <div>
+      <label for="income">💰 Renda Mensal:</label>
+      <input type="number" id="income" placeholder="Informe sua renda mensal">
+    </div>
+    <div>
+      <h2>📌 Adicionar Despesa</h2>
+      <input type="text" id="expenseName" placeholder="Nome da Despesa">
+      <input type="number" id="expenseValue" placeholder="Valor">
+      <button id="addExpense">Adicionar</button>
+    </div>
+    <h2>📋 Lista de Despesas</h2>
+    <ul id="expenseList"></ul>
+    <div class="summary">
+      <h3>Total de Gastos: <span id="totalExpenses">R$ 0,00</span></h3>
+      <h3>Saldo Restante: <span id="remainingBalance">R$ 0,00</span></h3>
+    </div>
+    <button class="pdf-btn" id="downloadPDF">📄 Baixar Relatório em PDF</button>
+    <canvas id="expenseChart" width="400" height="300"></canvas>
+  </div>
+
+  <script>
+    let income = 0;
+    let expenses = [];
+    let chart;
+
+    document.getElementById('income').addEventListener('change', function() {
+      income = parseFloat(this.value) || 0;
+      updateBalance();
+    });
+
+    document.getElementById('addExpense').addEventListener('click', function() {
+      const name = document.getElementById('expenseName').value;
+      const value = parseFloat(document.getElementById('expenseValue').value) || 0;
+
+      if (name && value > 0) {
+        const now = new Date();
+        const timestamp = now.toLocaleString();
+        expenses.push({ id: Date.now(), name, value, timestamp });
+        document.getElementById('expenseName').value = '';
+        document.getElementById('expenseValue').value = '';
+        updateExpenses();
+        updateBalance();
+      }
+    });
+
+    function updateExpenses() {
+      const expenseList = document.getElementById('expenseList');
+      expenseList.innerHTML = '';
+      expenses.forEach(expense => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <span>${expense.name}: R$ ${expense.value.toFixed(2)} <br><small>${expense.timestamp}</small></span>
+          <div class="actions">
+            <button class="edit" onclick="editExpense(${expense.id})">✏️ Editar</button>
+            <button onclick="deleteExpense(${expense.id})">❌ Excluir</button>
+          </div>
+        `;
+        expenseList.appendChild(li);
+      });
+      updateChart();
+    }
+
+    function updateBalance() {
+      const total = expenses.reduce((sum, expense) => sum + expense.value, 0);
+      document.getElementById('totalExpenses').textContent = `R$ ${total.toFixed(2)}`;
+      document.getElementById('remainingBalance').textContent = `R$ ${(income - total).toFixed(2)}`;
+    }
+
+    function updateChart() {
+      const ctx = document.getElementById('expenseChart').getContext('2d');
+      if (chart) chart.destroy();
+      const labels = expenses.map(expense => expense.name);
+      const data = expenses.map(expense => expense.value);
+
+      chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Despesas',
+            data: data,
+            backgroundColor: '#00b4d8'
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: { beginAtZero: true }
+          }
+        }
+      });
+    }
+
+    function deleteExpense(id) {
+      expenses = expenses.filter(expense => expense.id !== id);
+      updateExpenses();
+      updateBalance();
+    }
+
+    function editExpense(id) {
+      const expense = expenses.find(exp => exp.id === id);
+      if (expense) {
+        const newName = prompt("Editar nome da despesa:", expense.name);
+        const newValue = parseFloat(prompt("Editar valor da despesa:", expense.value)) || expense.value;
+        if (newName) {
+          expense.name = newName;
+          expense.value = newValue;
+          expense.timestamp = new Date().toLocaleString();
+          updateExpenses();
+          updateBalance();
+        }
+      }
+    }
+
+    document.getElementById('downloadPDF').addEventListener('click', () => {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.setFontSize(16);
+      doc.text("Relatório de Orçamento", 20, 20);
+      doc.setFontSize(12);
+      doc.text(`Renda Mensal: R$ ${income.toFixed(2)}`, 20, 30);
+
+      let y = 40;
+      expenses.forEach(expense => {
+        doc.text(`${expense.name} - R$ ${expense.value.toFixed(2)} (${expense.timestamp})`, 20, y);
+        y += 10;
+      });
+
+      const total = expenses.reduce((sum, expense) => sum + expense.value, 0);
+      doc.text(`Total de Gastos: R$ ${total.toFixed(2)}`, 20, y + 10);
+      doc.text(`Saldo Restante: R$ ${(income - total).toFixed(2)}`, 20, y + 20);
+
+      doc.save("relatorio_orcamento.pdf");
+    });
+  </script>
+</body>
+</html>
