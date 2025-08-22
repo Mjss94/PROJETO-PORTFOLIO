@@ -73,7 +73,7 @@ npx cypress run --spec "cypress/e2e/calculadora.cy.js"
 
 
 ## **Estrutura do Pojeto**
-
+```
 
 Calculadora-despesas/
 ├── README.md                  # Documentação do projeto
