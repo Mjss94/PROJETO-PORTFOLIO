@@ -1,0 +1,91 @@
+
+Warning: We failed to remove old browser profiles from previous runs.
+
+This error will not affect or change the exit code.
+
+Error: Command 'Get-CimInstance -className win32_process | select Name,ProcessId,ParentProcessId,CommandLine,ExecutablePath' terminated with code: 1
+    at ChildProcess.<anonymous> (<embedded>:1018:64777)
+    at ChildProcess.emit (node:events:518:28)
+    at maybeClose (node:internal/child_process:1101:16)
+    at Socket.<anonymous> (node:internal/child_process:456:11)
+    at Socket.emit (node:events:518:28)
+    at Pipe.<anonymous> (node:net:351:12)
+
+====================================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        15.0.0                                                                         │
+  │ Browser:        Electron 136 (headless)                                                        │
+  │ Node Version:   v20.17.0 (C:\Program Files\nodejs\node.exe)                                    │
+  │ Specs:          1 found (calculadora.cy.js)                                                    │
+  │ Searched:       cypress/e2e/**/*.cy.js                                                         │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  calculadora.cy.js                                                               (1 of 1)
+
+
+  Teste da Calculadora de Orçamento
+    √ Adicione a renda mensal (3144ms)
+    1) Adicionar varias despesas
+    √ Editar despesas e excluir a Gasolina (23758ms)
+    2) Excluir todas as despesas restantes
+    √ Manter o saldo total da renda quando não houver despesas (2618ms)
+
+
+  3 passing (1m)
+  2 failing
+
+  1) Teste da Calculadora de Orçamento
+       Adicionar varias despesas:
+     AssertionError: Timed out retrying after 4000ms: expected '<span#remainingBalance>' to contain 'R$ 1100.00'
+      at Context.eval (webpack://projeto-portfolio/./cypress/e2e/calculadora.cy.js:38:32)
+
+  2) Teste da Calculadora de Orçamento
+       Excluir todas as despesas restantes:
+     AssertionError: Timed out retrying after 4000ms: expected '<span#remainingBalance>' to contain 'R$ 5000.00'
+      at Context.eval (webpack://projeto-portfolio/./cypress/e2e/calculadora.cy.js:95:32)
+
+
+
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        5                                                                                │
+  │ Passing:      3                                                                                │
+  │ Failing:      2                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  2                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     1 minute, 17 seconds                                                             │
+  │ Spec Ran:     calculadora.cy.js                                                                │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+  (Screenshots)
+
+  -  C:\Users\Jacy\OneDrive\Área de Trabalho\projetos\Projeto portfolio\cypress\scree     (1280x720)
+     nshots\calculadora.cy.js\Teste da Calculadora de Orçamento -- Adicionar varias d               
+     espesas (failed).png                                                                           
+  -  C:\Users\Jacy\OneDrive\Área de Trabalho\projetos\Projeto portfolio\cypress\scree     (1280x720)
+     nshots\calculadora.cy.js\Teste da Calculadora de Orçamento -- Excluir todas as d               
+     espesas restantes (failed).png                                                                 
+
+
+====================================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped  
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ ✖  calculadora.cy.js                        01:17        5        3        2        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    ✖  1 of 1 failed (100%)                     01:17        5        3        2        -        -  
+
