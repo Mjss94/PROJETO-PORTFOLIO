@@ -1,7 +1,7 @@
 
 # Calculadora de Orçamento
 
-Aplicação web simples para gerenciar **renda mensal** e regristrar **despesas**, permitindo acompanhar o **saldo restante**, visualizar gráficos de gastos gerar relatórios em PDF do orçamento pessoal.
+Aplicação web simples para gerenciar **renda mensal** e regristrar **despesas**, permitindo acompanhar o **saldo restante**, visualizar gráficos de gastos e gerar relatórios em formato PDF do orçamento pessoal.
 
 ## Pré-requisitos
 
@@ -29,30 +29,21 @@ Antes de rodar a aplicação, verifique se você possui:
 
 1. Clone o repositório:
 
-```bash
 git clone <https://github.com/Mjss94/PROJETO-PORTFOLIO.git>
 
 2. Acesse a pasta do projeto:
 
-```bash
 cd Calculadora-despesas
 
 3. Instale as dependências (opcional, apenas se usar Cypress):
 
- ```bash
 npm install
 
 ## **Execução da aplicação**
 
- ```bash
-
 1. Abra o VS Code na pasta do projeto.
 
- ```bash
-
 2. Clique com o botão direito no index.html e selecione "Open with Live Server".
-
- ```bash
 
 3. A aplicação será aberta no navegador em http://127.0.0.1:5500/
 
@@ -60,13 +51,9 @@ npm install
 
 Para executar os testes automatizados com Cypress:
 
-```bash
-
 npx cypress open
 
 ou para rodar diretamente no terminal:
-
-```bash
 
 npx cypress run --spec "cypress/e2e/calculadora.cy.js"
 
