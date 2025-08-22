@@ -83,7 +83,6 @@ Calculadora-despesas/
 │   └── script.js              # Scripts JavaScript da aplicação
 ├── assets/
 ├── cypress/                   # Testes end-to-end
-│   ├── downloads/
 │   ├── e2e/
 │   │   └── calculadora.cy.js
 │   ├── fixtures/
@@ -91,14 +90,22 @@ Calculadora-despesas/
 │   └── support/
 │       ├── commands.js
 │       └── e2e.js
-├── node_modules/              # Dependências do Node
-├── package.json
+├── .gitignore              
+├── cypress.config.js         
 ├── package-lock.json
-├── cypress.config.js
-└── .gitignore
+├── package.json
+└── Planejamento-de-Testes.md
 
 ```
 
 ## **Documentos Adicionais** 
 
 - [Planejamento de Testes](Planejamento-de-Testes.md)
+
+## Autor
+
+**Nome:** Maria Jaciara   
+- GitHub: [Mjss94](https://github.com/Mjss94)  
+- LinkedIn: [Maria Jaciara](https://www.linkedin.com/in/maria-jaciara-477993149/)  
+- E-mail: [maryjacy2013@gmail.com](mailto:maryjacy2013@gmail.com)
+
